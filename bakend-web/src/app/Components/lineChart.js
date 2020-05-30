@@ -22,8 +22,8 @@ class LineCharts extends Component {
     
     render(){
         return(
-            <div style={{ position:"relative",width:600, height: 550}}>
-                <h3>Ingresados</h3>
+            <div style={{ position:"relative", width:"70%", height: 220}}>
+                 <h6>Ingresados</h6> 
                 <Line
                   options={{
                       responsive:true

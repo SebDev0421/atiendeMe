@@ -8,35 +8,35 @@ class Dashboard extends Component{
                 <ul className="collection with-header">
                     <li className="collection-item">
                         <div>Inicio
-                            <a href="#!" className="secondary-content">
+                            <a href="/home" className="secondary-content">
                                 <i className="material-icons">send</i>
                             </a>
                         </div>
                     </li>
                     <li className="collection-item">
                         <div>Usuarios
-                            <a href="#!" className="secondary-content">
+                            <a href="/users" className="secondary-content">
                                 <i className="material-icons">navigate_next</i>
                             </a>
                         </div>
                     </li>
                     <li className="collection-item">
                         <div>Reportes
-                            <a href="#!" className="secondary-content">
+                            <a href="/reports" className="secondary-content">
                                 <i className="material-icons">send</i>
                             </a>
                         </div>
                     </li>
                     <li className="collection-item">
                         <div>Información del hospital
-                            <a href="#!" className="secondary-content">
+                            <a href="/infoHospital" className="secondary-content">
                                 <i className="material-icons">send</i>
                             </a>
                         </div>
                     </li>
                     <li className="collection-item">
                         <div>Ajustes
-                            <a href="#!" className="secondary-content">
+                            <a href="/settings" className="secondary-content">
                                 <i className="material-icons">send</i>
                             </a>
                         </div>

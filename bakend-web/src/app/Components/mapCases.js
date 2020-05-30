@@ -47,9 +47,9 @@ class MapCases extends Component{
         return(
             <div style={{paddingLeft: "8%"}}>
                 <div className="sliderStyle">
- 
+                    <h6>Localidades con más afectados</h6>
                     <div ref={el => this.mapContainer = el} style={{
-                            width:500,
+                            width:"95%",
                             height:500
                             }}/>
                         

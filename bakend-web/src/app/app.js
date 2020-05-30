@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { render } from 'react-dom'
 import { Switch, Route} from 'react-router-dom'
 import Login from './Views/login'
-import Header from './Components/header'
 import Registry from './Views/register'
 import MapHospitals from './Components/mapHospital'
 import Dashboard from './Views/dashboard'
@@ -69,9 +68,8 @@ class App extends Component{
         
         return(
             <div>
-                <Header/>
                 <Switch>
-                    <Route exact path="/" component={Login}/>
+                    <Route exact path="/login" component={Login}/>
                     <Route path="/register" component={Registry}/>
                     <Route path="/mapTest" component={MapHospitals}/>
                     <Route path="/dashboard" component={Dashboard}/>

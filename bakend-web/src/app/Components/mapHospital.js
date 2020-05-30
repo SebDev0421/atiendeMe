@@ -5,8 +5,8 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2Via2lsbGVyMDQyMSIsImEiOiJjanppdmd3cjEwM2pzM
 
 class MapHospital extends Component{
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             lng : -74.084072,
             lat : 4.615096,
@@ -35,7 +35,6 @@ class MapHospital extends Component{
                 
                 marker.remove()
                 marker.setLngLat([this.state.lng,this.state.lat]).addTo(map)
-                
             })
 
             
