@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {matchPath} from 'react-router'
 
 
 const Login=() =>{
@@ -9,7 +8,7 @@ const Login=() =>{
   
 
         const getLogin=()=>{
-          const URI = '/api/hospitals'
+          const URI = 'http://181.54.182.7:5000/api/hospitals'
           const OptionAPI ={ 
           method: 'PUT',
           body: JSON.stringify({
@@ -28,8 +27,8 @@ const Login=() =>{
                               }else if(data.status === "password incorrect"){
                                 alert("la contraseña es incorrecta")
                               }else{
-                                window.open(`http://181.54.182.7:5000/home/${data._id}`,'_blank')
-                               console.log('ok')
+                                window.open(`http://181.54.182.7:3000/home/${data._id}`,'_blank')
+                                console.log('ok')
                               }
                             })
                             .catch(err=>console.log(err))

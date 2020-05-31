@@ -10,8 +10,9 @@ var mongoose = require('mongoose'),
        lat:"string",
        lng:"string",
        address:"string",
-       emailAdmin:'',
-       password:''
+       emailAdmin:"string",
+       password:"string",
+       category:0
      },{
          collection : "hospital"
      }),

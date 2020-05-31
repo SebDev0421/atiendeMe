@@ -1,15 +1,11 @@
 import React, {Component} from 'react'
-import { Switch} from 'react-router-dom'
-import {Route} from 'react-router'
+import { BrowserRouter,Route} from 'react-router-dom'
 import Login from './Views/login'
 import Registry from './Views/register'
-import MapHospitals from './Components/mapHospital'
-import Dashboard from './Views/dashboard'
 import Settings from './Views/settings'
 import Users from './Views/users'
 import Reports from './Views/reports'
 import Home from './Views/home'
-import InfoHospital from './Views/infoHospital'
 
 class App extends Component{
     constructor() {
@@ -24,12 +20,14 @@ class App extends Component{
         
         return(
             <div>
-                <Switch>
-                    <Route exact path="/login" component={Login}/>
+                <BrowserRouter>
+                    <Route path="/login" component={Login}/>
                     <Route path="/register" component={Registry}/>
-                    <Route exact path="/home/:id" component={Home}/>
-                    <Route path="/infohospital" component={InfoHospital}/>
-                </Switch>
+                    <Route path="/home/:id" children={<Home/>}/>
+                    <Route path="/users/:id" children={<Users/>}/>
+                    <Route path="/reports/:id" children={<Reports/>}/>
+                    <Route path="/setting/:id" children={<Settings/>}/>
+                </BrowserRouter>
             </div>
         )
     }

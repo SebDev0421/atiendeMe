@@ -30,8 +30,8 @@ Router.get('/hospitals',async(req,res)=>{
 
 Router.post('/hospitals',async(req,res)=>{
     var exist=false
-    const {name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password} = req.body
-    const hospital = new Hospital({name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password})
+    const {name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password, category} = req.body
+    const hospital = new Hospital({name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password, category})
     await Hospital.findOne({nit:nit},(err,obj)=>{
         if(err) throw err
         if(obj !== null){
@@ -175,12 +175,67 @@ Router.get('/temporal',async function(req,res){
 })
 
 Router.post('/temporal',async (req,res)=>{
-    const {name, nit, age, hospital, dissease, time} = req.body
-    const temporal = new Temporal({name, nit, age, hospital, dissease, time})
+    const {nameH,
+    name,
+    nit,
+    sick,
+    time,
+    lat,
+    lng,
+    scan} = req.body
+    console.log(req.body)
+    const temporal = new Temporal({nameH,
+        name,
+        nit,
+        time,
+        lat,
+        lng,
+        scan})
     await temporal.save()
+    var objSend
+    await Temporal.findOne({nit:nit},(err,obj)=>{
+        if(err) throw err
+        objSend = obj._id
+    })
+    res.json({_id:'sasaluiyds67dsui'})
+    
 })
+
+Router.get('/temporal/hospital',async (req,res)=>{
+    res.json({status:'connect'})
+})
+
+Router.post('/temporal/hospital',async (req,res)=>{
+    const {_id} = req.body
+    console.log(req.body)
+    var objData=[],nameHospital=''
+    await Hospital.findOne({_id:_id},(err,obj)=>{
+        if(err) throw err
+        console.log(obj.name)
+        nameHospital = obj.name
+    })
+
+    await Temporal.find({nameH:nameHospital},(err,obj)=>{
+        if(err) throw err
+        console.log(obj)
+        objData=obj
+    })
+    /*const temporal = new Temporal({nameH,
+        name,
+        nit,
+        time,
+        scan})
+    await temporal.save()
+    var objSend
+    await Temporal.findOne({nit:nit},(err,obj)=>{
+        if(err) throw err
+        objSend = obj._id
+    })*/
+    res.json(objData)
+    
+})
+
 /*
-try{
 Router.put('/temporal/:nit',async (req,res)=>{
     
 Temporal.findOne({nit:req.params.nit},(err,nit)=>{
