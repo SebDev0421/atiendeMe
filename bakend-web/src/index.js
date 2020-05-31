@@ -33,11 +33,11 @@ app.use(express.json())
 
 //Routes
 app.use('/api',Routes)
-app.use(express.static(path.join(__dirname,'/public')));
+/* app.use(express.static(path.join(__dirname,'/public')));
 
 app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname+'/public/index.html'));
-});
+}); */
 //server start
 app.listen(app.get('port'),()=>{
     console.log('Server newton code running in port: ',app.get('port'))

@@ -22,7 +22,6 @@ var transporter = nodemailer.createTransport({
 
 
 
-
 Router.get('/hospitals',async(req,res)=>{
     const hospital = await Hospital.find()
     res.json(hospital)
@@ -175,14 +174,14 @@ Router.get('/temporal',async function(req,res){
 })
 
 Router.post('/temporal',async (req,res)=>{
-    const {nameH,
-    name,
-    nit,
-    sick,
-    time,
-    lat,
-    lng,
-    scan} = req.body
+
+    const data=req.body,
+    nameH=data.nameh,
+    name=data.obj.name,
+    nit=data.obj.nit,
+    lat=data.lat,
+    lng=data.lng,
+    scan=0
     console.log(req.body)
     const temporal = new Temporal({nameH,
         name,
@@ -197,7 +196,7 @@ Router.post('/temporal',async (req,res)=>{
         if(err) throw err
         objSend = obj._id
     })
-    res.json({_id:'sasaluiyds67dsui'})
+    res.json({_id:objSend})
     
 })
 
@@ -211,8 +210,10 @@ Router.post('/temporal/hospital',async (req,res)=>{
     var objData=[],nameHospital=''
     await Hospital.findOne({_id:_id},(err,obj)=>{
         if(err) throw err
-        console.log(obj.name)
-        nameHospital = obj.name
+        if(obj !== null){
+            console.log(obj.name)
+            nameHospital = obj.name
+        }
     })
 
     await Temporal.find({nameH:nameHospital},(err,obj)=>{
@@ -220,40 +221,24 @@ Router.post('/temporal/hospital',async (req,res)=>{
         console.log(obj)
         objData=obj
     })
-    /*const temporal = new Temporal({nameH,
-        name,
-        nit,
-        time,
-        scan})
-    await temporal.save()
-    var objSend
-    await Temporal.findOne({nit:nit},(err,obj)=>{
-        if(err) throw err
-        objSend = obj._id
-    })*/
+    
     res.json(objData)
     
 })
-
-/*
-Router.put('/temporal/:nit',async (req,res)=>{
-    
-Temporal.findOne({nit:req.params.nit},(err,nit)=>{
-    if(nit){
-       await Temporal.findOneAndRemove()
-    }
-    else{
-        await Temporal.save()
-    }
+Router.get('/temporal/hospital/user',async (req,res)=>{
+   res.json({status:'OK API'})    
 })
-//   const temporal= await Temporal.findOne({nit:req.params.nit})
-//   if(!temporal){
-//       await temporal.save()
-//   }
-//   else{
-//       await temporal.findOneAndRemove()
-//   }
- })}catch(err){
-     console.log('in bu')
- }*/
+
+Router.put('/temporal/hospital/user',async (req,res)=>{
+var{_id}=req.body,
+dataRead={}
+console.log(_id)
+
+await Temporal.findById(_id,(err,obj)=>{
+    dataRead = obj
+})
+res.json(dataRead)
+
+})
+
 module.exports = Router
