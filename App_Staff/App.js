@@ -1,7 +1,8 @@
-import React, {useState, Component} from 'react';
+import React, {Component} from 'react';
 import {  StyleSheet,  
           View,
-          AsyncStorage
+          AsyncStorage,
+          Button
         } from 'react-native';
 import InfoLayaout from './screens/infolayaout'
 import Scanqr from './screens/scanqr'
@@ -10,15 +11,18 @@ import dataKey from './src/data/data.json'
 var Key = dataKey.key
 class App extends Component{
   
-  getData= async()=>{
+   getData= async()=>{
     try{
       let qrData = await AsyncStorage.getItem('key')
       alert(`${qrData}`)
     }catch(error){
       alert(error)
     }
-  }
+  } 
   constructor(){
+
+
+
     super()
     this.state={
       Data : [],
@@ -66,8 +70,10 @@ render(){
         <InfoLayaout 
           Datos = {this.state.Data}
           againScanned = {this.goScanned} 
-        />  
+        />
+         
       }
+      <Button title="GG" onPress={()=>this.getData()} /> 
     </View> 
     ) 
   }
