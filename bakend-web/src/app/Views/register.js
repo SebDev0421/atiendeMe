@@ -37,15 +37,19 @@ addTask(e){
             Accept : 'application/json',
             'Content-Type' : 'application/json'
         }
-    }).then((res)=>{res.json()})
-      .then(posts => {
+    }).then(function (res){return res.json()})
+      .then((posts) => {
         console.log(posts)
-        
-      })
+        if(posts.status==="Hospital was add"){
+         window.open('http://181.54.182.7:5000/login','_blank')
+         }else if(posts.status==="Hospital already exist"){
+          alert("el hospital que quiere registrar ya existe")
+        }
+      }
+      )
       .catch((err)=>{console.log(err)})
 
-      alert('Hospital agregado')
-      window.open('http://181.54.182.7:5000/login','_blank')
+      
     }
 
 
@@ -123,9 +127,8 @@ render(){
                         </form>
                       </div>
 
-                      <div style={{paddingLeft: "8%"}}>
+                      <div style={{paddingLeft: "20%"}}>
                 <div className="sliderStyle">
- 
                     <div ref={el => this.mapContainer = el} style={{
                             width:500,
                             height:500
