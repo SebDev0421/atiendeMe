@@ -29,11 +29,51 @@ Router.get('/hospitals',async(req,res)=>{
 })
 
 Router.post('/hospitals',async(req,res)=>{
-   const {name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password} = req.body
+    var exist=false
+    const {name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password} = req.body
     const hospital = new Hospital({name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password})
-    await hospital.save()
-    console.log(req.body)
-    res.json({status:'Hospital was add'})
+    await Hospital.findOne({nit:nit},(err,obj)=>{
+        if(err) throw err
+        if(obj !== null){
+            exist=true
+            console.log(obj)
+        }
+    })
+    if(exist){
+        return res.json({status:'Hospital already exist'})
+    }else{
+        
+        await hospital.save()
+        return res.json({status:'Hospital was add'})
+    }    
+})
+
+Router.put('/hospitals',async(req,res)=>{
+    var existUsr = false
+    var existPass = false
+    var objSend
+    const {email,password}=req.body
+    await Hospital.findOne({emailAdmin:email},(err,obj)=>{
+         if(err) throw err
+         console.log(obj)
+         if(obj !== null){
+             existUsr = true
+             if(obj.password === password){
+                 existPass=true
+                 objSend = obj
+             }
+         }
+    })
+
+    if(!existUsr){
+        return res.json({status:'user dont exits'})
+    }
+    if(!existPass){
+        return res.json({status:'password incorrect'})
+    }
+    return res.json(objSend)
+    
+
 })
 
 Router.get('/pacients',async(req,res)=>{
@@ -44,6 +84,7 @@ Router.get('/pacients',async(req,res)=>{
 Router.post('/pacients',async(req,res)=>{
     const {name, nit,sick, location, hospital,symptoms, healtDates,  time} = req.body
     const pacients = new Pacients({name, nit,sick, location, hospital,symptoms, healtDates, time})
+    
     await   pacients.save()
     res.json({status : 'Pacient was add'})
 })

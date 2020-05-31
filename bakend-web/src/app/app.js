@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { render } from 'react-dom'
 import { Switch, Route} from 'react-router-dom'
 import Login from './Views/login'
 import Registry from './Views/register'
@@ -10,15 +9,12 @@ import Users from './Views/users'
 import Reports from './Views/reports'
 import Home from './Views/home'
 import InfoHospital from './Views/infoHospital'
+
 class App extends Component{
     constructor() {
         super()
-        this.state = {
-            title : '',
-            description: '',
-            task: []
-        }
-        this.handleChange = this.handleChange.bind(this)
+       
+        
     }
 
 

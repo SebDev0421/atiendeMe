@@ -3,8 +3,8 @@ import {render} from 'react-dom'
 import Dashboard from './dashboard'
 import Header from '../Components/header'
 
-export default class Home extends Component{
-    render(){
+const  Home = () => {
+    
         return(
             <div>
                 <Header/>
@@ -106,5 +106,7 @@ export default class Home extends Component{
                 </div>
             </div>
         )
-    }
+    
 }
+
+export default Home
