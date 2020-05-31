@@ -17,34 +17,37 @@ class Registry extends Component {
       confirmPassword:'',
       lng : -74.084072,
       lat : 4.615096,
-      zoom : 15
+      availableBeds:0,
+      covidSicks:0,
+      zoom : 15,
+      status:[]
     }
     this.addTask = this.addTask.bind(this)
     this.handleChange = this.handleChange.bind(this)
 }
 
 addTask(e){
+  
     console.log(this.state)
     fetch('/api/hospitals/',
     {
         method: 'POST',
-        body: JSON.stringify({
-          name:this.state.name,
-
-        }),
+        body: JSON.stringify(this.state),
         headers: {
-            'Accept' : 'application/json',
+            Accept : 'application/json',
             'Content-Type' : 'application/json'
         }
     }).then((res)=>{res.json()})
-      .then((data)=>{
-          console.log(data)
-          M.toast({html: 'task saved'})
-          this.setState({title:'',description:''})
-        })
+      .then(posts => {
+        console.log(posts)
+        
+      })
       .catch((err)=>{console.log(err)})
-    e.preventDefault()
-}
+
+      alert('Hospital agregado')
+      window.open('http://181.54.182.7:5000/login','_blank')
+    }
+
 
 handleChange(e){
   const {name, value}= e.target
@@ -143,7 +146,7 @@ render(){
                           <a>
                           <button
                               onClick={()=>{
-
+                                this.addTask()
                                 console.log(this.state)
                             }} 
                             className="btn blue"

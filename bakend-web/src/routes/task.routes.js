@@ -4,6 +4,7 @@ const express = require('express'),
       Router = express.Router(),
       Hospital = require('../models/hospital'),
       Pacients = require('../models/pacients'),
+      Temporal = require('../models/temporal'),
       fs = require('fs'),
       Users = require('../models/users'),
       nodemailer = require('nodemailer')
@@ -20,17 +21,18 @@ var transporter = nodemailer.createTransport({
 
 
 
+
+
 Router.get('/hospitals',async(req,res)=>{
     const hospital = await Hospital.find()
     res.json(hospital)
 })
 
 Router.post('/hospitals',async(req,res)=>{
-    const {name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password} = req.body
+   const {name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password} = req.body
     const hospital = new Hospital({name, nit, availableBeds, covidSicks, lat, lng, address, emailAdmin, password})
     await hospital.save()
     console.log(req.body)
-    res.status(200);
     res.json({status:'Hospital was add'})
 })
 
@@ -42,7 +44,7 @@ Router.get('/pacients',async(req,res)=>{
 Router.post('/pacients',async(req,res)=>{
     const {name, nit,sick, location, hospital,symptoms, healtDates,  time} = req.body
     const pacients = new Pacients({name, nit,sick, location, hospital,symptoms, healtDates, time})
-    await pacients.save()
+    await   pacients.save()
     res.json({status : 'Pacient was add'})
 })
 
@@ -99,6 +101,7 @@ Router.post('/users',async(req,res)=>{
 Router.put('/users/login',async(req,res)=>{
 
     const {nit, password} = req.body
+    console.log(req.body)
     var validateUser = false , validatePassword =false, date
     await Users.findOne({nit:nit},(err,obj)=>{
         if(err) throw err
@@ -125,4 +128,36 @@ Router.put('/users/login',async(req,res)=>{
 
 })
 
+Router.get('/temporal',async function(req,res){
+    const temporal = await Temporal.find()
+    res.json(temporal)
+})
+
+Router.post('/temporal',async (req,res)=>{
+    const {name, nit, age, hospital, dissease, time} = req.body
+    const temporal = new Temporal({name, nit, age, hospital, dissease, time})
+    await temporal.save()
+})
+/*
+try{
+Router.put('/temporal/:nit',async (req,res)=>{
+    
+Temporal.findOne({nit:req.params.nit},(err,nit)=>{
+    if(nit){
+       await Temporal.findOneAndRemove()
+    }
+    else{
+        await Temporal.save()
+    }
+})
+//   const temporal= await Temporal.findOne({nit:req.params.nit})
+//   if(!temporal){
+//       await temporal.save()
+//   }
+//   else{
+//       await temporal.findOneAndRemove()
+//   }
+ })}catch(err){
+     console.log('in bu')
+ }*/
 module.exports = Router

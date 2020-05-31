@@ -1,8 +1,23 @@
 import React, {Component} from 'react'
-import { render } from 'react-dom'
-//import Style from '../styles/login.css'
-class Login extends Component {
 
+class Login extends Component {
+  constructor(){
+    super()
+    this.state={
+      user:'',
+      password:''
+    }
+    this.handledChange = this.handledChange.bind(this)
+  }
+
+  handledChange(e){
+    const {name,value} = e.target
+
+    this.setState({
+      [name]:value
+    })
+    
+  }
     render(){
         return(
             <div>
@@ -23,8 +38,14 @@ class Login extends Component {
                         <div className="card-content">
                           <div className="row">
                               <div className="input-field col s7">
-                                <input name="user" type="text" placeholder="Usuario o email"/>
-                                <input name="password" type="password" placeholder="Contraseña"/>
+                                <input
+                                onChange={this.handledChange}
+                                value={this.state.user}
+                                name="user" type="text" placeholder="Usuario o email"/>
+                                <input
+                                onChange={this.handledChange}
+                                value={this.state.user}
+                                name="password" type="password" placeholder="Contraseña"/>
                               </div>
                               <div className="input-field col s5">
                                   <button
