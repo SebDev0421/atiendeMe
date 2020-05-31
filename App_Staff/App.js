@@ -10,17 +10,27 @@ import dataKey from './src/data/data.json'
 
 var Key = dataKey.key
 class App extends Component{
-  
-   getData= async()=>{
-    try{
-      let qrData = await AsyncStorage.getItem('key')
-      alert(`${qrData}`)
-    }catch(error){
-      alert(error)
-    }
-  } 
   constructor(){
-
+    fetch('http://181.54.182.7:5000/api/temporal/hospital/user', {
+        method: 'PUT',
+        headers: {
+        Accept: 'application/json',
+        'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+            _id: Key
+        }) 
+    })
+    .then(function(response){return response.json()})
+        .then((data) => {
+        this.setState({
+          Data : data
+        })
+        
+        })
+        .catch(err=>{
+        console.log(err)
+        })
 
 
     super()
@@ -38,27 +48,6 @@ class App extends Component{
   goScanned(e){
     this.setState({ Scanned: true})
   }
-  async componentDidMount(){
-    const URI = 'http://181.54.182.7:5000/api/temporal/hospital/user'
-            const OptionAPI ={ 
-            method: 'PUT',
-            body: JSON.stringify({
-              _id:Key,
-            }),
-            headers: {
-                Accept : 'application/json',
-                'Content-Type' : 'application/json'
-            }
-          }
-          await fetch(URI,OptionAPI).then(function (res){return res.json()})
-            .then((data)=>{
-              this.setState({
-                Data : data
-              })                   
-            console.log(data)
-            })
-            .catch(err=>console.log(err))
-  }
 render(){ 
   return (
     <View style={styles.container}> 
@@ -71,9 +60,7 @@ render(){
           Datos = {this.state.Data}
           againScanned = {this.goScanned} 
         />
-         
       }
-      <Button title="GG" onPress={()=>this.getData()} /> 
     </View> 
     ) 
   }

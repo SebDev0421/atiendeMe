@@ -5,7 +5,7 @@ import Style from '../styles/style'
 
 
 export default function Scanqr(props){
-
+    let [qrDate,setQrDate] = useState()
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -16,7 +16,11 @@ export default function Scanqr(props){
             </View>
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
-                    <Qr scanned={props.againScanned} />
+                    <Qr 
+                    dataCodeQr={(value)=>{
+                        setQrDate(value)
+                         console.log(qrDate)                    }}
+                    scanned={props.againScanned} />
                 </View>
             </View>    
         </View>

@@ -3,29 +3,7 @@ import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Data from '../src/data/data.json'
 
-
-var id
-export class Dakey extends Component{
-    constructor(){
-        super()
-        this.state={
-            Data: id
-        }
-    }
-    addData=()=>{
-        Data.push({
-            "key" : this.state.Data
-        })
-    }
-}
-
-/* saveDate(id){
-    AsyncStorage.setItem('key',id)
-    console.log("guardado V:")
-}  */
-
 export default function Qr(props) {
-    Dakey
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     useEffect(() => {
@@ -35,11 +13,13 @@ export default function Qr(props) {
     })();
     }, []);
     const handleBarCodeScanned = ({data}) => {
-
         
-    setScanned(true);
-    AsyncStorage.setItem('key',data.toString()) 
-     
+        setScanned(true);
+        Data.push({
+            Key: data 
+        })
+    console.log(data)
+    
         // alert(`${data}`); 
         
     }
@@ -55,7 +35,7 @@ export default function Qr(props) {
             flex: 1
             }}>
             <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned  && props.scanned   }
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned   && props.scanned    }
             style={StyleSheet.absoluteFillObject}
             />
 
