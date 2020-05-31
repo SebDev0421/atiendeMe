@@ -14,6 +14,10 @@ const fetchFonts = ()=>{
         'roboto-light': require('../assets/fonts/Roboto-Light.ttf')
     })
 }
+const scanned=()=>{
+    true
+}
+
 export default function InfoLayaout(props){  
     const [dataLoaded, setDataLoaded] = useState(false)
     if(!dataLoaded){
@@ -24,22 +28,21 @@ export default function InfoLayaout(props){
         />
         )
     }
+    
     return (
         <View style={styles.container}>
         <View style={styles.header}>
             <Text style={{fontFamily: 'roboto-regular'}, Style.TextHeadline}>
-                Escanea el código QR
-                para validar la información
+                Valida la información
             </Text>
         </View>
         <View style={styles.body}>
             <View style={styles.bodyContent}>
-                {/* <Text> {props.Datos} </Text> */}
                 <Info datos = {props.Datos}></Info>
             </View>
             <View style={styles.bodyFooter}>
                 <TouchableOpacity style={Style.button}> 
-                    <Text style={ {fontFamily: 'roboto-medium'}, Style.TextButton}> Ingresa </Text>
+                    <Text style={ {fontFamily: 'roboto-medium'}, Style.TextButton} onPress={props.againScanned}> Ingresa </Text>
                 </TouchableOpacity>
             </View>
         </View>

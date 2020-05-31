@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, ImagePropTypes } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-export default function Qr() {
+export default function Qr(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     /* const {_receivedKey} = this.props */
@@ -12,18 +12,19 @@ export default function Qr() {
         setHasPermission(status === 'granted');
     })();
     }, []);
-
-    const handleBarCodeScanned = ({ type, data }) => {
+    var id
+    const handleBarCodeScanned = ({data}) => {
     setScanned(true);
-    alert(`${data}`);
+    data = id
     };
 
     if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return <Text>Solicitar permiso de cámara</Text>;
     }
     if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>No accesso a la camera</Text>;
     }
+
 
     return (
     <View
@@ -31,11 +32,11 @@ export default function Qr() {
         flex: 1
         }}>
         <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned && props.scanned && props.keyId}
         style={StyleSheet.absoluteFillObject}
         />
 
-        {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+        {scanned }
     </View>
     );
 }

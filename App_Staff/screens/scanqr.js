@@ -18,7 +18,7 @@ export default function Scanqr(props){
             </View>
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
-                    <Qr/>
+                    <Qr scanned={props.againScanned} keyId={props.recievedKey}/>
                 </View>
             </View>    
         </View>
