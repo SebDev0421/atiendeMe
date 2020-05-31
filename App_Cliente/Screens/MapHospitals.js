@@ -141,7 +141,7 @@ class App extends Component {
   MarkerColor  (HT, r){
     let color='';
     let category='';
-    let marker = [];
+    //let marker = [];
 
     if (HT === 1){
       //this.setState({HospitalCategory: 'Covid-19'})
@@ -233,7 +233,7 @@ class App extends Component {
 
             <View style={{flex:1, marginTop:'8%',alignItems:'flex-end', marginHorizontal:'5%'}} >
               <TouchableOpacity
-                onPress={()=> this.componentDidMount(), this.MapList()}
+                onPress={()=> this.componentDidMount()}
               >
                 <Image 
                   source={Reload}
