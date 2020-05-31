@@ -18,10 +18,10 @@ export class Dakey extends Component{
         })
     }
 }
-saveDate(id){
+/* saveDate(id){
     AsyncStorage.setItem('key',id)
     console.log("guardado V:")
-}
+} */
 export default function Qr(props) {
     Dakey
     const [hasPermission, setHasPermission] = useState(null);
@@ -34,8 +34,9 @@ export default function Qr(props) {
     }, []);
     const handleBarCodeScanned = ({data}) => {
     setScanned(true);
+    AsyncStorage.setItem('key',data)
         /* alert(`${data}`); */
-        this.saveDate(data)
+        
     }
     if (hasPermission === null) {
     return <Text>Solicitar permiso de cámara</Text>;
