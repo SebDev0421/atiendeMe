@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {render} from 'react-dom'
 import User from '../Components/user'
 import Header from '../Components/header'
@@ -7,33 +7,34 @@ import {useParams} from 'react-router-dom'
 
 const  Users =()=>{
     
-    var dataUsers = []
-    
-    var [dates,setDates] = useState([])
+    const [dates,setDates] = useState([])
     
     let {id} = useParams()
-    const getUsers= ()=>{
-        
-        const URI = 'http://181.54.182.7:5000/api/temporal/hospital'
-        const OptionAPI ={ 
-        method: 'POST',
-        body: JSON.stringify({
-          _id:id,
-        }),
-        headers: {
-            Accept : 'application/json',
-            'Content-Type' : 'application/json'
+    useEffect(()=>{
+        async function fetchCount(){
+            const URI = 'http://181.54.182.7:5000/api/temporal/hospital'
+            const OptionAPI ={ 
+            method: 'POST',
+            body: JSON.stringify({
+              _id:id,
+            }),
+            headers: {
+                Accept : 'application/json',
+                'Content-Type' : 'application/json'
+            }
+          }
+          await fetch(URI,OptionAPI).then(function (res){return res.json()})
+                              .then((data)=>{
+                                setDates(data)
+                                console.log(data)
+                              })
+                              .catch(err=>console.log(err))
         }
-      }
-      fetch(URI,OptionAPI).then(function (res){return res.json()})
-                          .then((data)=>{
-                            dataUsers = data
-                          })
-                          .catch(err=>console.log(err))
-      }
+       fetchCount();
+    },[]);
+    
+    
 
-
-      getUsers()
       
         return(
             <div>
@@ -134,7 +135,6 @@ const  Users =()=>{
                                   }  
                                 </tbody>
                            </table>
-                           <button onClick={()=>{setDates(dataUsers)}}>Obtener pacientes actuales</button>
                     </div>
                 </div>
             </div>

@@ -110,7 +110,7 @@ render(){
                         <input 
                         onChange={this.handleChange}
                         value={this.state.category}
-                        name="nit" type="text" placeholder="categoria hospital 1) covid 2) medicina  general 3) odontologia"/>
+                        name="category" type="text" placeholder="categoria hospital 1) covid 2) medicina  general 3) odontologia"/>
                         <input
                         onChange={this.handleChange}
                         value={this.state.address}
@@ -154,6 +154,16 @@ render(){
                           <a>
                           <button
                               onClick={()=>{
+                                if(this.state.addresss === "" || this.state.name === "" || this.state.nit === "" || this.state.password === "" || this.state.confirmPassword === ""){
+                                  alert('Faltan datos por ser insertados')
+                                  return
+                                }
+
+                                if(this.state.password !== this.state.confirmPassword){
+                                  alert('las contraseñas no considen')
+                                  return
+                                }
+                                
                                 this.addTask()
                                 console.log(this.state)
                             }} 
