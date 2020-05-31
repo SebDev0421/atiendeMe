@@ -31,19 +31,13 @@ export default function Info(props){
                 {props.datos.name}
             </Text>
             <Text style={{fontFamily: 'roboto-regular'}, Style.TextMenu}> 
-                {props.datos.age}
+                {props.datos.nit}
             </Text>
             <Text style={{fontFamily: 'roboto-regular'}, Style.TextMenu}> 
-                {props.datos.email}
+                {props.datos.nameH}
             </Text>
             <Text style={{fontFamily: 'roboto-regular'}, Style.TextMenu}> 
-                {props.datos.psw}
-            </Text>
-            <Text style={{fontFamily: 'roboto-regular'}, Style.TextMenu}> 
-                {props.datos.phone}
-            </Text>
-            <Text style={{fontFamily: 'roboto-regular'}, Style.TextMenu}> 
-                {props.datos.familiarPhone}
+                {props.datos.time}
             </Text>
         </View>
         

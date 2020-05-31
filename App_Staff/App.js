@@ -1,58 +1,73 @@
 import React, {useState, Component} from 'react';
-import {  StyleSheet, 
-          Text, 
+import {  StyleSheet,  
           View,
-          Button
+          AsyncStorage
         } from 'react-native';
 import InfoLayaout from './screens/infolayaout'
 import Scanqr from './screens/scanqr'
+import dataKey from './src/data/data.json'
 
-
+var Key = dataKey.key
 class App extends Component{
+  
+  getData= async()=>{
+    try{
+      let qrData = await AsyncStorage.getItem('key')
+      alert(`${qrData}`)
+    }catch(error){
+      alert(error)
+    }
+  }
   constructor(){
     super()
     this.state={
       Data : [],
       Scanned: true,
-      Key:''
     }
     this.returnScanned = this.returnScanned.bind(this)
     this.goScanned = this.goScanned.bind(this)
-    this.recievedKey = this.recievedKey.bind(this)
+    
   }
-
-
   returnScanned(e){
     this.setState({ Scanned: false})
   }
   goScanned(e){
     this.setState({ Scanned: true})
   }
-
   async componentDidMount(){
-    const URL = 'http://181.54.182.7:5000/api/users'
-    const response = await fetch(URL)
-    let data = await response.json()
-    this.setState({Data : data[0]})
-    console.log(data[0])
-    console.log(this.state.Data)
+    const URI = 'http://181.54.182.7:5000/api/temporal/hospital/user'
+            const OptionAPI ={ 
+            method: 'PUT',
+            body: JSON.stringify({
+              _id:Key,
+            }),
+            headers: {
+                Accept : 'application/json',
+                'Content-Type' : 'application/json'
+            }
+          }
+          await fetch(URI,OptionAPI).then(function (res){return res.json()})
+            .then((data)=>{
+              this.setState({
+                Data : data
+              })                   
+            console.log(data)
+            })
+            .catch(err=>console.log(err))
   }
-  
-  recievedKey(e){
-    console.log(e.target.dataset.key)
-  }
-render(){
+render(){ 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}> 
       {
         this.state.Scanned == true ?
-        <Scanqr recievedKey = {this.recievedKey} againScanned={this.returnScanned}/> 
+        <Scanqr againScanned={this.returnScanned}>
+        </Scanqr>
         :
         <InfoLayaout 
-            Datos = {this.state.Data}
-            againScanned = {this.goScanned} 
-          />  
-      }       
+          Datos = {this.state.Data}
+          againScanned = {this.goScanned} 
+        />  
+      }
     </View> 
     ) 
   }

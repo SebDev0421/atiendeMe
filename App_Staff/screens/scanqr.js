@@ -6,8 +6,6 @@ import Style from '../styles/style'
 
 export default function Scanqr(props){
 
-    const {_receivedKey} = props   
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -18,7 +16,7 @@ export default function Scanqr(props){
             </View>
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
-                    <Qr scanned={props.againScanned} keyId={props.recievedKey}/>
+                    <Qr scanned={props.againScanned} />
                 </View>
             </View>    
         </View>
