@@ -236,7 +236,11 @@ class App extends Component {
             <View style={{flex:1, marginTop:'8%',alignItems:'flex-end', marginHorizontal:'5%'}} >
               <TouchableOpacity
 <<<<<<< HEAD
+<<<<<<< HEAD
                 onPress={()=> {this.componentDidMount()}}
+=======
+                onPress={()=> this.componentDidMount()}
+>>>>>>> 26401023650d631f608bd7a03dec145838a7091a
 =======
                 onPress={()=> this.componentDidMount()}
 >>>>>>> 26401023650d631f608bd7a03dec145838a7091a
