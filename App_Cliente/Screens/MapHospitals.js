@@ -128,6 +128,8 @@ class App extends Component {
           Hospitals:Go
         }
       )
+
+      {this.MapList()}
       
     
   }
@@ -233,7 +235,7 @@ class App extends Component {
 
             <View style={{flex:1, marginTop:'8%',alignItems:'flex-end', marginHorizontal:'5%'}} >
               <TouchableOpacity
-                onPress={()=> this.componentDidMount(), this.MapList()}
+                onPress={()=> {this.componentDidMount()}}
               >
                 <Image 
                   source={Reload}
