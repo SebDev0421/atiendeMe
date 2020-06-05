@@ -1,4 +1,4 @@
-const URL = 'http://181.54.182.7:5000/api/hospitals'
+const URL = 'http://181.54.182.7:5000/api/temporal/hospital/user'
 
 
 class API{
